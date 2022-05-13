@@ -273,27 +273,27 @@ while i > 10:
 Стандартная библиотека Python содержит модуль `turtle`, предназначенный для обучения программированию. Этот модуль содержит набор функций, позволяющих управлять черепахой. Черепаха умеет выполнять небольшой набор команд, а именно:
 
 Команда	Значение
-```turtle
+```python
 forward(X)	# Пройти вперёд X пикселей
 backward(X)	# Пройти назад X пикселей
-left(X)	# Повернуться налево на X градусов
+left(X)		# Повернуться налево на X градусов
 right(X)	# Повернуться направо на X градусов
-penup()	# Не оставлять след при движении
+penup()		# Не оставлять след при движении
 pendown()	# Оставлять след при движении
 shape(X)	# Изменить значок черепахи (“arrow”, “turtle”, “circle”, “square”, “triangle”, “classic”)
-stamp()	# Нарисовать копию черепахи в текущем месте
-color()	# Установить цвет
+stamp()		# Нарисовать копию черепахи в текущем месте
+color()		# Установить цвет
 begin_fill()	# Необходимо вызвать перед рисованием фигуры, которую надо закрасить
 end_fill()	# Вызвать после окончания рисования фигуры
-width()	# Установить толщину линии
+width()		# Установить толщину линии
 goto(x, y)	# Переместить черепашку в точку (x, y)
 ```
 
 ***Практические задачи***
 
-Программа рисует букву S:
+***Рисуем букву S***
 
-```turtle
+```python
 import turtle
 
 turtle.shape('turtle')
@@ -308,9 +308,9 @@ turtle.right(90)
 turtle.forward(50)
 ```
 
-Рисуем круг
+***Рисуем круг***
 
-```turtle
+```python
 import turtle
 
 # Create a turtle
@@ -326,7 +326,7 @@ turtle.circle(radius)
 turtle.done()
 ```
 
-Рисуем вложенные квадраты, один в другой с уменьшением шага
+***Рисуем вложенные квадраты***, один в другой с уменьшением шага
 
 ```python
 import turtle
@@ -345,4 +345,62 @@ while a > 1:
     turtle.left(90)
     a -= 1
 input()
+```
+
+***Рисуем паука, с заданным количеством лап***
+
+```python
+import turtle
+
+a = int(input())  # количество лап паука
+turtle.shape('turtle')
+for i in range(a):
+    turtle.forward(100)
+    turtle.backward(100)
+    turtle.right(360 / a)
+input()
+```
+
+***Рисуем спираль***
+
+Нужно подключить модуль `math`
+
+```python
+from math import pi, sin, cos
+import turtle
+
+turtle.shape('turtle')
+for i in range(200):
+    t = i / 10 * pi
+    dx = t * cos(t)
+    dy = t * sin(t)
+    turtle.goto(dx, dy)
+```
+
+or
+
+```python
+import turtle
+
+turtle.shape('turtle')
+x = 0.5
+for i in range(20):
+    for j in range(30):
+        turtle.forward(x)
+        turtle.left(6)
+    x += 0.5
+```    
+
+***Рисуем квадратную спираль***
+
+```python
+import turtle
+
+turtle.shape('turtle')
+x = 15
+for i in range(20):
+    for j in range(30):
+        turtle.forward(x)
+        turtle.left(90)
+        x += 5
 ```
