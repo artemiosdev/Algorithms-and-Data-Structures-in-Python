@@ -758,8 +758,83 @@ for i in range(11):
 
 `==` - оператор сравнения двух значений
 
-В Питоне если нужно перенести строку с выражением используем скобки (.....), так как он очень требователен к переносам, иначе будет ошибка выражения.
+В Питоне если нужно перенести строку с выражением используем скобки (.....), так как он очень внимателен к переносам и требует сдвига, иначе будет ошибка выражения.
 
 <img alt="image" src="images/bool true or false code example.jpg"/>
 
+<img alt="image" src="images/каскадные условные конструкции.jpg"/>
 
+***Python: Конструкция `else + if = elif`***
+
+Это способ задать несколько альтернативных условий.
+
+Функция `get_type_of_sentence()` из предыдущего урока различает только вопросительные и обычные предложения. Давайте попробуем добавить поддержку восклицательных предложений:
+
+```python
+def get_type_of_sentence(sentence):
+    last_char = sentence[-1]
+
+    if last_char == '?':
+        sentence_type = 'question'
+
+    if last_char == '!':
+        sentence_type = 'exclamation'
+    else:
+        sentence_type = 'normal'
+
+    return 'Sentence is ' + sentence_type
+
+print(get_type_of_sentence('Who?'))  # => 'Sentence is normal'
+print(get_type_of_sentence('No'))    # => 'Sentence is normal'
+print(get_type_of_sentence('No!'))   # => 'Sentence is exclamation'
+```
+
+Технически функция работает, но вопросительные предложения трактует неверно, да и с точки зрения семантики есть проблемы.
+
+Проверка на наличие восклицательного знака происходит в любом случае, даже если уже был обнаружен вопросительный знак.
+
+Ветка `else` описана именно для второго условия, но не для первого (именно поэтому вопросительное предложение становится "normal").
+
+Для исправления ситуации воспользуемся ещё одной возможностью условной конструкции:
+
+```python
+def get_type_of_sentence(sentence):
+    last_char = sentence[-1]
+
+    if last_char == '?':
+        sentence_type = 'question'
+    elif last_char == '!':
+        sentence_type = 'exclamation'
+    else:
+        sentence_type = 'normal'
+
+    return 'Sentence is ' + sentence_type
+
+print(get_type_of_sentence('Who?'))  # => 'Sentence is question'
+print(get_type_of_sentence('No'))    # => 'Sentence is normal'
+print(get_type_of_sentence('No!'))   # => 'Sentence is exclamation'
+```
+
+Теперь все условия выстроены в единую конструкцию. ***`elif` — это «если не выполнено предыдущее условие, но выполнено текущее»***. Получается такая схема:
+
+- если последняя буква `?`, то 'question'
+
+- иначе, если последняя буква `!`, то 'exclamation'
+
+- иначе 'normal'
+
+Выполнится только один из блоков кода, относящихся ко всей конструкции `if`.
+
+Конструкция с несколькими `elif` может также служить отличной заменой конструкции `switch - case`
+
+```python
+a = int(input())
+if a < -5:
+    print('Low')
+elif -5 <= a <= 5:
+    print('Mid')
+else:
+    print('High')
+```
+
+### 
