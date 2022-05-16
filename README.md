@@ -844,5 +844,16 @@ else:
 
 <img alt="image" src="images/Системы счисления.jpg"/>
 
+```python
+base = 7 # можно любое
+x = int(input())
+while x > 0 :
+  digit = x % base
+  print(digit)
+  x //= base
+```
+
+<img alt="image" src="images/Однопроходные алгоритмы.jpg"/>
+
 
 
