@@ -897,6 +897,123 @@ while x > 0 :
 
 Имя должно отражать содержание того, что делает функция.
 
+```python
+def hello():
+	print("hello, world")
+	
+hello()
+f = hello # без скобок, и f становится ссылкой на функцию hello
+f()
+```
+
+```bash
+Result:
+hello, world
+hello, world
+```
+
+```python
+def hello(name):
+	print("hello, ", name)
+	
+hello("Artem")
+f = hello("Artem")
+```
+
+```bash
+Result:
+hello,  Artem
+hello,  Artem
+```
+
+Можно задать параметр по умолчанию
+
+```python
+def hello(name = "world"): 
+	print("hello, ", name)
+hello("Artem")
+f = hello("Artem")
+hello()
+```
+
+```bash
+Result:
+hello,  Artem
+hello,  Artem
+hello,  world
+```
+
+```python
+def max3(x, y):
+  if x > y:
+    return x
+  return y
+	
+z = maxTwo(5, 6)
+print(z)
+```
+
+```python
+def max2(x, y):
+  if x > y:
+    return x
+  return y
+	
+def max3(x, y, z):
+  return max2(x, max2(y,z))
+
+number = max3(5,6,7)
+print(number)
+```
+
+***[Duck typing](https://docs-python.ru/tutorial/osnovnye-vstroennye-tipy-python/utinaja-tipizatsija-duck-typing/)*** - "если это похоже на утку и крякает как утка, то это утка". Утиный полифорфизм, утиная типизация. Любое нечто которое можно сравнивать друг с другом, допустимо для аргументов этой функции
+
+```python
+def max2(x, y):
+  if x > y:
+    return x
+  return y
+	
+def max3(x, y, z):
+  return max2(x, max2(y,z))
+
+number = max3(5,6,7)
+print(number)
+print(max3(5.1, 5.2, 5.3))
+print(max3("a", "ab", "abc"))
+print(max3("cat", "cot", "cit"))
+```
+
+```bash
+Result:
+7
+5.3
+abc
+cot
+```
+
+***Именованные параметры***
+```python
+def hello_separator(name = "World", separator = "***"):
+	print("Hello", name, sep = separator)
+hello_separator()
+hello_separator(separator = "---")
+hello_separator(separator = "+++", name = "John")
+```
+
+```bash
+Result:
+Hello***World
+Hello---World
+Hello+++John
+```
+
+```python
+
+```
+
+
+
 ---
 [К оглавлению](#contents)
 ### <a id="lection5" />Лекция №5
@@ -988,5 +1105,4 @@ while x > 0 :
 ---
 [К оглавлению](#contents)
 ### <a id="lection27" />Лекция №27
-
 
