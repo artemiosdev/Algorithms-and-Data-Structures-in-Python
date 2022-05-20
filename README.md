@@ -1413,7 +1413,7 @@ Result: [4, 0, 1, 2, 3]
 
 <img alt="image" src="images/New_Animation_Sieve_of_Eratosthenes.gif"/>
 
-<img alt="image" src="images/Решето Эратосфена.оjpg"/>
+<img alt="image" src="images/Решето Эратосфена.jpg"/>
 
 Пример кода:
 
