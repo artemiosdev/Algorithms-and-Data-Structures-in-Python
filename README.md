@@ -1320,31 +1320,89 @@ Result:
 #test3 - ok
 ```
 
-```python
+***Копирование массива в обратном порядке*** (задом-наперёд, накрест)
 
+Реверс массива - копируем элементы в обратном порядке относительно исходного массива. Было [0, 1, 2, 3] -> [3, 2, 1, 0].
+
+В Си ***[копирование массива, реверс и циклический сдвиг](https://github.com/artemiosdev/C_Kernighan_and_Ritchie#paragraph20)***
+
+`B[k] = A[N -1 - k]`
+
+```python
+def invert_array(a: list, n: int):
+    """Обращение массива (поворот задом-наперёд)
+        в рамках индексов от 0 до N-1
+    """
+    # n//2 важное условие, иначе работа будет идти
+    # по кругу еще раз и результат будет прежний, 
+    # т.е мы перевернем массив и еще раз перевернем,
+    # и будет тот же результат
+    
+    for k in range(n // 2):
+        a[k], a[n - 1 - k] = a[n - 1 - k], a[k]
+
+def test_invert_array():
+    a1 = [1, 2, 3, 4, 5]
+    print(a1)
+    invert_array(a1, 5)
+    print(a1)
+    if a1 == [5, 4, 3, 2, 1]:
+        print("#test1 - ok")
+    else:
+        print("#test1 - fail")
+
+    a2 = [0, 0, 0, 0, 0, 0, 0, 10]
+    print(a2)
+    invert_array(a2, 8)
+    print(a2)
+    if a2 == [10, 0, 0, 0, 0, 0, 0, 0]:
+        print("#test2 - ok")
+    else:
+        print("#test2 - fail")
+
+test_invert_array()
 ```
 
 ```bash
 Result: 
-
+[1, 2, 3, 4, 5]
+[5, 4, 3, 2, 1]
+#test1 - ok
+[0, 0, 0, 0, 0, 0, 0, 10]
+[10, 0, 0, 0, 0, 0, 0, 0]
+#test2 - ok
 ```
 
-```python
+***Циклический сдвиг в массиве*** - операция преобразования элементов массива.
 
+<img alt="image" src="images/циклический сдвиг влево,вправо.jpg"/>
+
+`array[len(array)-1]` - последний элемент массива
+
+```python
+array = [0, 1, 2, 3, 4]
+tmp = array[0]
+for k in range(len(array)-1):
+    array[k] = array[k + 1]
+array[len(array)-1] = tmp
+print(array)
 ```
 
 ```bash
-Result: 
-
+Result: [1, 2, 3, 4, 0]
 ```
 
 ```python
-
+array = [0, 1, 2, 3, 4]
+tmp = array[len(array)-1]
+for k in range(len(array)-2, -1, -1):
+    array[k + 1] = array[k]
+array[0] = tmp
+print(array)
 ```
 
 ```bash
-Result: 
-
+Result: [4, 0, 1, 2, 3]
 ```
 ---
 [К оглавлению](#contents)
