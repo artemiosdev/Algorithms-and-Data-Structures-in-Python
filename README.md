@@ -1540,7 +1540,6 @@ print(B) # [4, 16, 36, 64, 100]
 (По неизвестной причине github не подгружает gif, смотри в папке images)
 
 ***Вставками (insert sort)***
-<img alt="image" src="images/insertion-sort.gif" width = 700/> 
 
 <img alt="image" src="images/insertion-sort.gif"/> 
 
@@ -1551,12 +1550,14 @@ print(B) # [4, 16, 36, 64, 100]
 
 ***Выбором (choise/selection sort)***
 Алгоритм пробегает по всем ещё не упорядоченным элементам, ищет среди них минимальный (сохраняя его значение и индекс) и переставляет в конец выстриваемого списка.
+
 <img alt="image" src="images/selection_choise_sort.gif" width = 500/> 
 
 ![image](https://github.com/artemiosdev/Algorithms-and-Data-Structures-in-Python/blob/main/images/selection_choise_sort.gif)
 
 ***Пузырька (bubble sort)***
 Соседние элементы сравниваются и при необходимости меняются местами, в результате "лёгкие" элементы перемещаются к началу списка, а "тяжёлые" - к концу. Операция циклически выполняется для оставшихся элементов.
+
 ![image](https://github.com/artemiosdev/Algorithms-and-Data-Structures-in-Python/blob/main/images/bubble-sort.gif)
 
 <img alt="image" src="images/bubble-sort.gif" width = 700/> 
