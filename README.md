@@ -1537,7 +1537,6 @@ print(B) # [4, 16, 36, 64, 100]
 
 <img alt="image" src="images/O(n^2).jpg"/>
 
-
 ***Вставками (insert sort)***
 <img alt="image" src="images/insertion_sort.gif"/> 
 4 прохода для 5 элементов. 
