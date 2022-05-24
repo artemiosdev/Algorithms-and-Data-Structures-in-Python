@@ -1551,7 +1551,7 @@ print(B) # [4, 16, 36, 64, 100]
 ***Выбором (choise/selection sort)***
 Алгоритм пробегает по всем ещё не упорядоченным элементам, ищет среди них минимальный (сохраняя его значение и индекс) и переставляет в конец выстриваемого списка.
 
-<img alt="image" src="images/selection_choise_sort.gif" width = 500/> 
+<img alt="image" src="images/selection_choise_sort.gif"/> 
 
 ![image](https://github.com/artemiosdev/Algorithms-and-Data-Structures-in-Python/blob/main/images/selection_choise_sort.gif)
 
@@ -1560,25 +1560,142 @@ print(B) # [4, 16, 36, 64, 100]
 
 ![image](https://github.com/artemiosdev/Algorithms-and-Data-Structures-in-Python/blob/main/images/bubble-sort.gif)
 
-<img alt="image" src="images/bubble-sort.gif" width = 700/> 
-
+<img alt="image" src="images/bubble-sort.gif"/> 
 
 ```python
+def insert_sort(A):
+    """ сортировка списка А вставками """
+    N = len(A)
+    for top in range(N):
+        k = top
+        while k > 0 and A[k-1] > A[k]:
+            A[k], A[k-1] = A[k-1], A[k]
+            k -= 1
+            
+def choice_sort(A):
+    """сортировка списка А выбором """
+    N = len(A)
+    for pos in range(0, N-1):
+        for k in range(pos+1, N):
+            if A[k] < A[pos]:
+                A[k], A[pos] = A[pos], A[k]
 
+def bubble_sort (A) :
+    """сортировкм списка А методом пузырька, начинается с конца"""
+    N = len(A)
+    for bypass in range(1, N):
+        for k in range(0, N-bypass):
+            if A[k] > A[k+1]:
+                A[k], A[k+1] = A[k+1], A[k]
+
+def test_sort(sort_algorithm):
+    print("Тестируем:", sort_algorithm.__doc__)
+    print("test case #1: ", end="")
+    A = [4, 2, 5, 1, 3]
+    A_sorted = [1, 2, 3, 4, 5]
+    sort_algorithm(A)
+    print("Ok" if A == A_sorted else "Fail")
+    
+    print("test case #2: ", end="")
+    A = list(range(10, 20)) + list(range (0, 10))
+    A_sorted = list(range(20))
+    sort_algorithm (A)
+    print("Ok" if A == A_sorted else "Fail")
+
+    print("test case #3: ", end="")
+    A = [4, 2, 4, 2, 1]
+    A_sorted = [1, 2, 2, 4, 4]
+    sort_algorithm(A)
+    print("Ok" if A == A_sorted else "Fail")
+    
+if __name__ == "__main__":
+    test_sort(insert_sort)
+    test_sort(choice_sort)
+    test_sort(bubble_sort)
 ```
 
 ```bash
 Result: 
-
+Тестируем:  сортировка списка А вставками 
+test case #1: Ok
+test case #2: Ok
+test case #3: Ok
+Тестируем: сор�ировка списка А выбором 
+test case #1: Ok
+test case #2: Ok
+test case #3: Ok
+Тестируем: сортировкм списка А методом пузырька
+test case #1: Ok
+test case #2: Ok
+test case #3: Ok
 ```
 
-<img alt="image" src="images/New_Animation_Sieve_of_Eratosthenes.gif"/>
+***Сортировка подсчетом (count sort)***
+Однопроходный алгоритм. Проходимся по массиву и подсчитываем количество вхождений каждого элемента. После проходим по массиву значений и выводим каждое число столько раз, сколько нужно.
+Применение сортировки подсчётом целесообразно лишь тогда, когда массив состоит из целочисленных, положительных чисел. O(n). O(m), где m это количество различных элементов.
 
-<img alt="image" src="images/Решето Эратосфена.jpg"/>
+<img alt="image" src="images/counting-sort.gif"/>
+
+```python
+# основа
+N = ....
+F = [0] * 10
+for i in range(N):
+	x = int(input())
+	F[x] += 1
+```
+
+```python
+def countingSort(inputArray):
+    # Find the maximum element in the inputArray
+    maxElement= max(inputArray)
+
+    countArrayLength = maxElement+1
+
+    # Initialize the countArray with (max+1) zeros
+    countArray = [0] * countArrayLength
+
+    # Step 1 -> Traverse the inputArray and increase 
+    # the corresponding count for every element by 1
+    for el in inputArray: 
+        countArray[el] += 1
+
+    # Step 2 -> For each element in the countArray, 
+    # sum up its value with the value of the previous 
+    # element, and then store that value 
+    # as the value of the current element
+    for i in range(1, countArrayLength):
+        countArray[i] += countArray[i-1] 
+
+    # Step 3 -> Calculate element position
+    # based on the countArray values
+    outputArray = [0] * len(inputArray)
+    i = len(inputArray) - 1
+    while i >= 0:
+        currentEl = inputArray[i]
+        countArray[currentEl] -= 1
+        newPosition = countArray[currentEl]
+        outputArray[newPosition] = currentEl
+        i -= 1
+
+    return outputArray
+
+inputArray = [2,2,0,6,1,9,9,7]
+print("Input array = ", inputArray)
+
+sortedArray = countingSort(inputArray)
+print("Counting sort result = ", sortedArray)
+```
+
+```bash
+Result: 
+Input array =  [2, 2, 0, 6, 1, 9, 9, 7]
+Counting sort result =  [0, 1, 2, 2, 6, 7, 9, 9]
+```
 
 ---
 [К оглавлению](#contents)
-### <a id="lection7" />Лекция №7
+### <a id="lection7" />Лекция №7. Рекурсия. Прямой и обратный ход рекурсии. Факториал. Алгоритм Евклида. Ханойские башни.
 
 ```python
 
@@ -1609,6 +1726,7 @@ Result:
 
 ---
 [К оглавлению](#contents)
+
 ### <a id="lection10" />Лекция №10
 
 ---
