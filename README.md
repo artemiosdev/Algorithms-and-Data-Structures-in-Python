@@ -1572,6 +1572,10 @@ Result:
 
 ```
 
+<img alt="image" src="images/New_Animation_Sieve_of_Eratosthenes.gif"/>
+
+<img alt="image" src="images/Решето Эратосфена.jpg"/>
+
 ---
 [К оглавлению](#contents)
 ### <a id="lection7" />Лекция №7
