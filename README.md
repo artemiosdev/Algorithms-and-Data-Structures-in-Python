@@ -1538,23 +1538,26 @@ print(B) # [4, 16, 36, 64, 100]
 <img alt="image" src="images/O(n^2).jpg"/>
 
 ***Вставками (insert sort)***
-<img alt="image" src="images/insertion-sort.gif.gif" width = 600 heigth = 600/> 
+<img alt="image" src="images/insertion-sort.gif" width = 700/> 
 
-<img alt="image" src="images/insertion-sort.gif.gif"/> 
+<img alt="image" src="images/insertion-sort.gif"/> 
 
 ![image](https://github.com/artemiosdev/Algorithms-and-Data-Structures-in-Python/blob/main/images/insertion-sort.gif)
-
 
 4 прохода для 5 элементов. 
 В начальный момент отсортированная последовательность пуста. На каждом шаге алгоритма выбирается один из элементов входных данных и помещается на нужную позицию в уже отсортированной последовательности до тех пор, пока набор входных данных не будет исчерпан. В любой момент времени в отсортированной последовательности элементы удовлетворяют требованиям к выходным данным алгоритма.
 
 ***Выбором (choise/selection sort)***
 Алгоритм пробегает по всем ещё не упорядоченным элементам, ищет среди них минимальный (сохраняя его значение и индекс) и переставляет в конец выстриваемого списка.
+<img alt="image" src="images/selection_choise_sort.gif" width = 300/> 
 ![image](https://github.com/artemiosdev/Algorithms-and-Data-Structures-in-Python/blob/main/images/selection_choise_sort.gif)
 
 ***Пузырька (bubble sort)***
 Соседние элементы сравниваются и при необходимости меняются местами, в результате "лёгкие" элементы перемещаются к началу списка, а "тяжёлые" - к концу. Операция циклически выполняется для оставшихся элементов.
-![image](https://github.com/artemiosdev/Algorithms-and-Data-Structures-in-Python/blob/main/images/buble-sort.gif)
+![image](https://github.com/artemiosdev/Algorithms-and-Data-Structures-in-Python/blob/main/images/bubble-sort.gif)
+
+<img alt="image" src="images/bubble-sort.gif" width = 700/> 
+
 
 ```python
 
