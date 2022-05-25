@@ -1780,7 +1780,12 @@ foo(**{key:1,foo:2})
 
 <img alt="image" src="images/fractal_rectangle.jpg"> </img>
 
-***Факториал***
+***[Факториал](https://ru.wikipedia.org/wiki/%D0%A4%D0%B0%D0%BA%D1%82%D0%BE%D1%80%D0%B8%D0%B0%D0%BB)***
+
+Это функция, определённая на множестве неотрицательных целых чисел. Факториал натурального числа `n` определяется как произведение всех натуральных чисел от 1 до `n` включительно
+5! = 1 * 2 * 3 * 4 * 5 = 120
+
+`n! = (n - 1)! * n`
 
 `assert` - оператор проверки, генерует ошибки если вызовут функцию с неправильным параметром, используется для отладки кода. Это своего рода проверка, которая исследует функциональность вашего кода.
 
@@ -1798,33 +1803,78 @@ assert num2 != 0, "The divisor is zero"
 
 В `assert` мы указали условие, что `num2` (делитель) не должен быть равен нулю. Данное условие не выполняется, потому что значение `num2` равно нулю. Интерпретатор Python выдает ошибку `AssertionError` вместе с добавленным нами сообщением «The divisor is zero» («Делитель равен нулю»).
 
+```python
+def factorial (n:int):
+    assert n > 0, "Факториал неопределенный"
+    if n == 1:
+        return 1
+    return factorial(n-1) * n
+    
+print(factorial(5)) # 120
+```
 
+Примеры рекурсивных алгоритмов
+
+<img alt="image" src="images/recursion_algorithms.jpg"> </img>
+
+***[Алгоритм Евклида](https://ru.wikipedia.org/wiki/%D0%90%D0%BB%D0%B3%D0%BE%D1%80%D0%B8%D1%82%D0%BC_%D0%95%D0%B2%D0%BA%D0%BB%D0%B8%D0%B4%D0%B0)*** - эффективный метод вычисления наибольшего общего делителя (НОД).
+
+НОД(a, b) - наибольший общий делитель чисел пишется "greatest common divisor"
+
+Существует несколько вариантов алгоритма, ниже записанный в псевдокоде рекурсивный вариант:
 
 ```python
-
+функция нод(a, b)
+    если b = 0
+       возврат a
+    иначе
+       возврат нод(b, a mod b)
 ```
 
-```bash
-Result:
+Иллюстрация выполнения алгоритма Евклида для вычисления  НОД чисел 1599 и 650:
 
-```
+Шаг 1.	1599 = 650*2 + 299
+
+Шаг 2.	650 = 299*2 + 52
+
+Шаг 3.	299 = 52*5 + 39
+
+Шаг 4.	52 = 39*1 + 13
+
+Шаг 5.	39 = 13*3 + 0
+
+gif в папке images
+
+<img alt="image" src="images/euclids-algorithm-example.gif"> </img>
+
+<img alt="image" src="images/euclids-example.jpg"> </img>
 
 ```python
-
+def gcd (a:int, b:int):
+    if a == b:
+        return a
+    elif a > b:
+        return gcd(a-b, b)
+    elif a < b:
+        return gcd(a, b-a)
+    
+print(gcd(7,14)) # 7
+print(gcd(7,13)) # 1
 ```
-
-```bash
-Result:
-
-```
+or
 
 ```python
-
+def gcd (a:int, b:int):
+    if b == 0:
+        return a
+    else:
+        return gcd(b, a%b)
 ```
+or
 
-```bash
-Result:
-
+```python
+def gcd (a:int, b:int):
+    return a if b == 0 else gcd(b, a%b)
 ```
 
 
