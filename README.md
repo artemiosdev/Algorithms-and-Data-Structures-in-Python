@@ -1877,7 +1877,11 @@ def gcd (a:int, b:int):
     return a if b == 0 else gcd(b, a%b)
 ```
 
+***Ханойские башни***
 
+<img alt="image" src="images/hanoi_towers.jpg"> </img>
+
+n - высота i - столбец с которого нужно переложить k - столбец на который нужно переложить
 
 ---
 [К оглавлению](#contents)
