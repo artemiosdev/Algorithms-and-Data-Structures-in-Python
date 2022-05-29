@@ -1877,24 +1877,71 @@ def gcd (a:int, b:int):
     return a if b == 0 else gcd(b, a%b)
 ```
 
+***Быстрое возведение в степень***
+
+Рассматриваем только для целых положительных чисел, a не равно нулю, и n отрицательное.
+
+<img alt="image" src="images/быстрое возведение в степень.jpg"> </img>
+
+```python
+def pow(a:float, n:int):
+    if n == 0:
+        return 1
+    return pow(a, n-1) * a
+    
+print(pow(5, 4)) # 625
+```
+
+```python
+def pow(a:float, n:int):
+    if n == 0:
+        return 1
+        
+    # для нечетной степени
+    elif n%2 == 1:
+        return pow(a, n-1) * a
+    
+    # для четной степени
+    return pow(a**2, n//2)
+    
+print(pow(5, 10)) # 9765625
+```
+
 ***Ханойские башни***
 
 <img alt="image" src="images/hanoi_towers.jpg"> </img>
 
-n - высота i - столбец с которого нужно переложить k - столбец на который нужно переложить
+<img alt="image" src="images/hanoi_towers2.jpg"> </img>
 
----
-[К оглавлению](#contents)
-### <a id="lection8" />Лекция №8
+`n` - высота, `i` - столбец с которого нужно переложить `k` - столбец на который нужно переложить, `tmp` - временное хранище, запасной столбец
 
 ```python
-
+def hanoi(n, i, k):
+    if (n == 1):
+        print("Move disk 1 from pin", i, "to", k);
+    else:
+        tmp = 6 - i - k;
+        hanoi(n-1, i, tmp);
+        print("Move disk", n, "from pin", i, "to", k);
+        hanoi(n-1, tmp, k);
+        
+print(hanoi(3, 1, 2))
 ```
 
 ```bash
 Result:
-
+Move disk 1 from pin 1 to 2
+Move disk 2 from pin 1 to 3
+Move disk 1 from pin 2 to 3
+Move disk 3 from pin 1 to 2
+Move disk 1 from pin 3 to 1
+Move disk 2 from pin 3 to 2
+Move disk 1 from pin 1 to 2
 ```
+
+---
+[К оглавлению](#contents)
+### <a id="lection8" />Лекция №8
 
 ```python
 
