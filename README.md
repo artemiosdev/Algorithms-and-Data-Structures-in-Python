@@ -1541,7 +1541,7 @@ print(B) # [4, 16, 36, 64, 100]
 
 ***Вставками (insert sort)***
 
-<img alt="image" src="images/insertion-sort.gif"/> 
+<img alt="gif" src="images/insertion-sort.gif"/> 
 
 ![image](https://github.com/artemiosdev/Algorithms-and-Data-Structures-in-Python/blob/main/images/insertion-sort.gif)
 
@@ -1551,7 +1551,7 @@ print(B) # [4, 16, 36, 64, 100]
 ***Выбором (choise/selection sort)***
 Алгоритм пробегает по всем ещё не упорядоченным элементам, ищет среди них минимальный (сохраняя его значение и индекс) и переставляет в конец выстриваемого списка.
 
-<img alt="image" src="images/selection_choise_sort.gif"/> 
+<img alt="gif" src="images/selection_choise_sort.gif"/> 
 
 ![image](https://github.com/artemiosdev/Algorithms-and-Data-Structures-in-Python/blob/main/images/selection_choise_sort.gif)
 
@@ -1560,7 +1560,7 @@ print(B) # [4, 16, 36, 64, 100]
 
 ![image](https://github.com/artemiosdev/Algorithms-and-Data-Structures-in-Python/blob/main/images/bubble-sort.gif)
 
-<img alt="image" src="images/bubble-sort.gif"/> 
+<img alt="gif" src="images/bubble-sort.gif"/> 
 
 ```python
 def insert_sort(A):
@@ -1941,25 +1941,144 @@ Move disk 1 from pin 1 to 2
 
 ---
 [К оглавлению](#contents)
-### <a id="lection8" />Лекция №8
+### <a id="lection8" />Лекция №8. Генерация комбинаторных объектов. Рекурсивная генерация всех чисел длины M. Генерация всех перестановок (рекурсивная). Быстрые или Рекуррентные сортировки: Тони Хоара и слиянием (без реализации).
+
+***Генерация комбинаторных объектов. Рекурсивная генерация всех чисел длины***
+
+Логика перебора чисел, рекурентно. 
+
+<img alt="image" src="images/генерация всех перестановок.jpg"> </img>
+
+Простой пример, логики программы, для двоичной системы счисления:
 
 ```python
-
+def gen_bin(M, prefix=""):
+    if M == 0:
+        print(prefix)
+        return
+    gen_bin(M-1, prefix+"0")
+    gen_bin(M-1, prefix+"1")
+    
+    # или в цикле
+    # for digit in "0", "1":
+    #     gen_bin(M-1, prefix+digit)
+    
+gen_bin(3)
 ```
 
 ```bash
 Result:
-
+000
+001
+010
+011
+100
+101
+110
+111
 ```
 
-```python
+Для произвольной системы счисления:
 
+```python
+def generate_number(N:int, M:int, prefix=None):
+    """ Генерирует все числа (с лидирующими незначащими нулями)
+        в N-ричной системе счисления (N <= 10) длины М
+    """
+    prefix = prefix or []
+    if M == 0:
+        print(prefix)
+        return
+    for digit in range(N):
+        prefix.append(digit)
+        generate_number(N, M-1, prefix)
+        prefix.pop()
+        
+# для двоичных чисел длины 3
+generate_number(2, 3)
+
+# для троичных чисел длины 3
+# generate_number(3, 3)
 ```
 
 ```bash
 Result:
-
+[0, 0, 0]
+[0, 0, 1]
+[0, 1, 0]
+[0, 1, 1]
+[1, 0, 0]
+[1, 0, 1]
+[1, 1, 0]
+[1, 1, 1]
 ```
+
+***Генерация всех перестановок***
+
+```python
+def find(number, A):
+    """ ищет number в А и возвращает True, если такой есть
+        False, если такого нет
+    """
+    flag = False
+    for x in A:
+        if number == x:
+            flag = True
+            break
+    return flag
+
+def generate_permutations(N:int, M:int=-1, prefix=None):
+    """ Generating all permutations of N numbers in M positions,
+        with prefix prefix
+    """
+    if M == -1:
+        M = N  # по умолчанию, N чисел в N позициях
+        
+    prefix = prefix or []
+    if M == 0:
+        print(prefix)
+        # можно использовать оператор * , чтобы встроить
+        # все параметры
+        # print(*prefix)
+        return
+    for number in range(1, N+1):
+        if find(number, prefix): #FIXME
+            continue
+        prefix.append(number)
+        generate_permutations(N, M-1, prefix)
+        prefix.pop()
+
+generate_permutations(3)
+```
+
+```bash
+Result:
+[1, 2, 3]
+[1, 3, 2]
+[2, 1, 3]
+[2, 3, 1]
+[3, 1, 2]
+[3, 2, 1]
+```
+
+```bash
+При использовании оператора `*` , чтобы встроить
+все параметры в `print(*prefix)`
+Result:
+1 2 3
+1 3 2
+2 1 3
+2 3 1
+3 1 2
+3 2 1
+```
+
+***Быстрые или Рекуррентные сортировки: Тони Хоара и слиянием (без реализации).***
+
+Сортировка Тони Хоара на неторорых выборках массивов сортирует плохо. Сортировка слияние сортирует всегда хорошо, в остальном они чаще всего одинаковые по скорости.
+
+<img alt="image" src="images/Быстрые или Рекуррентные сортировки Тони Хоара и слиянием.jpg"> </img>
+
 ---
 [К оглавлению](#contents)
 ### <a id="lection9" />Лекция №9
