@@ -2128,16 +2128,36 @@ Result:
 
 Но есть и другая реализация, где принимаем на вход один массив, и благодаря индексам, уже сливаем, индексами указано где левая, и где правая часть для сливания (как выше мы использовали для этого 2 отдельных массива)
 
-***Сама реализация рекурентной сортировки***
+***Сама реализация рекурентной сортировки слиянием***
+
+<img alt="image" src="images/Сортировка слиянием реализация.jpg"> </img>
+
+`def merge` описана выше 
 
 ```python
-
+def merge_sort(A):
+    if len(A) <= 1:
+        return
+    middle = len(A)//2
+    left_part = [A[i] for i in range(0, middle)]
+    right_part = [A[i] for i in range(middle, len(A))]
+    merge_sort(left_part)
+    merge_sort(right_part)
+    C = merge(left_part, right_part)
+    for i in range(len(A)):
+        A[i] = C[i]
+    return A 
+    
+D = [1, 3, 2, 14, 5, 10, 9, 13, 4, 6]
+print(merge_sort(D))
 ```
 
 ```bash
 Result:
-
+[1, 2, 3, 4, 5, 6, 9, 10, 13, 14]
 ```
+
+***Сортировка Тони Хоара (быстрая сортировка/quick sort)***
 
 ```python
 
