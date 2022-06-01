@@ -2237,30 +2237,79 @@ middle = (left_bound + right_bound) // 2
 
 ```
 
+***Реализиция бинарного поиска в массиве***
 
+Скорость работы очень быстрая. **O(log2 N)**
+Разбор в начале 10 лекции. Массив должен быть отсортирован.
+
+```python
+def left_bound(A, key):
+    left = -1
+    right = len(A)
+    while right - left > 1:
+        middle = (right + left) // 2
+        if A[middle] < key:
+            left = middle
+        else:
+            right = middle
+    return left
+
+def right_bound(A, key):
+    left = -1
+    right = len(A)
+    while right - left > 1:
+        middle = (right + left) // 2
+        if A[middle] <= key:
+            left = middle
+        else:
+            right = middle
+    return right
+
+D = [1, 1, 2, 2, 3, 3, 3, 4, 4, 4, 5, 5, 5, 5, 7, 7, 7]
+print(left_bound(D, 3))
+print(right_bound(D, 2))
+```
+
+```bash
+Result:
+3
+4
+```
 
 ---
 [К оглавлению](#contents)
 
 ### <a id="lection10" />Лекция №10. Вычисление чисел Фибоначчи и проблема перевычислений. Одномерное динамическое программирование на примере чисел Фибоначчи. Задачи о кузнечике (количество траекторий, траектория наименьшей стоимости). Двумерные массивы (списки списков). Оператор is.
 
+***Динамическое программирование***
+
+***[Числа Фибоначчи](https://ru.wikipedia.org/wiki/%D0%A7%D0%B8%D1%81%D0%BB%D0%B0_%D0%A4%D0%B8%D0%B1%D0%BE%D0%BD%D0%B0%D1%87%D1%87%D0%B8)*** — элементы числовой последовательности 0, 1,   1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377, 610, 987, 1597, 2584, 4181, 6765, 10946, 17711, …  в которой первые два числа равны 0 и 1, а каждое последующее число равно сумме двух предыдущих чисел
+
+<img alt="image" src="images/Вычисление чисел Фибоначчи.jpg"> </img>
+
+"Как раз это и называется динамическим программированием - рекурсия вывернутая наоборот"
+
 ```python
-
+def fib(n):
+    if n <= 1:
+        return n
+    return fib(n-1) + fib(n-2)
+print(fib(10)) # 55
 ```
 
-```bash
-Result:
-
-```
+C помощью цикла for без рекурсии
 
 ```python
-
+def fib(n):
+    fib = [0, 1] + [0] * (n-1)
+    for i in range(2, n+1):
+        fib[i] = fib[i-1] + fib[i-2]
+    return fib[n]
+    
+print(fib(5)) # 5 
 ```
 
-```bash
-Result:
 
-```
 
 ```python
 
