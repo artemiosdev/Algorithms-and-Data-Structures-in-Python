@@ -2159,13 +2159,46 @@ Result:
 
 ***Сортировка Тони Хоара (быстрая сортировка/quick sort)***
 
-```python
+Новые объекты в Питоне появляются единственным способом, это вычислением самого оlбъекта. Помним об ссылочной модели в языке. 
 
+<img alt="image" src="images/Сортировка Тони Хоара.jpg"> </img>
+
+```python
+def hoar_sort(A):
+    if len(A) <= 1:
+        return
+    
+    # барьерный элемент, допускаем что это число случайное
+    # и на его основе будет делать массив на три части
+    barrier = A[0]
+    left = []
+    middle = []
+    right = []
+    
+    for x in A:
+        if x < barrier:
+            left.append(x)
+        elif x == barrier:
+            middle.append(x)
+        else:
+            right.append(x)
+            
+    hoar_sort(left)
+    hoar_sort(right)
+    
+    k = 0
+    for x in left + middle + right:
+        A[k] = x
+        k += 1
+    return A
+        
+D = [1, 3, 2, 14, 5, 10, 9, 13, 4, 6]
+print(hoar_sort(D))
 ```
 
 ```bash
 Result:
-
+[1, 2, 3, 4, 5, 6, 9, 10, 13, 14]
 ```
 ---
 [К оглавлению](#contents)
