@@ -2362,7 +2362,7 @@ A = [[0] * M for i in range(N)]
 
 ---
 [К оглавлению](#contents)
-### <a id="lection11" />Лекция №11
+### <a id="lection11" />Лекция №11. Двумерное динамическое программирование. Наибольшая общая подпоследовательность. Наибольшая возрастающая подпоследовательность.
 
 ***Задача про шахматного короля***
 
@@ -2391,33 +2391,55 @@ F -  длина наибольшей возможной подпоследова
 
 <img alt="image" src="images/Наибольшая общая подпоследовательность.jpg"> </img>
 
-50 минута !
-```python
-
-```
-
-```bash
-Result:
-
-```
+<img alt="image" src="images/Наибольшая общая подпоследовательность алгоритм.jpg"> </img>
 
 ```python
-
+def lcs(A,B):
+    F = [[0] * (len(B) + 1) for i in range (len(A) + 1)]
+    for i in range(1, len(A) + 1):
+        for j in range(1, len(B) + 1):
+            if A[i-1] == B[j-1]:
+                F[i][j] = 1 + F[i-1][j-1]
+            else:
+                F[i][j] = max(F[i-1][j], F[i][j-1])
+    return F[-1][-1]
 ```
 
-```bash
-Result:
+***Наибольшая возрастающая подпоследовательность (НВП)***
 
-```
+Ищем длину НВП
+
+<img alt="image" src="images/Наибольшая возрастающая подпоследовательность.jpg"> </img>
+
+<img alt="image" src="images/Наибольшая возрастающая подпоследовательность алгоритм.jpg"> </img>
 
 ```python
-
+def gis(A):
+    F = [0] * (len(A) + 1)
+    for i in range(1, len(A) + 1):
+        max = 0
+        for j in range(0, i):
+            if A[i] > A[j] and F[j] > max:
+                max = F[j]
+        F[i] = max + 1
+    return F[len(A)]
 ```
 
-```bash
-Result:
+or
 
+```python
+def gis(a):
+    f = [0]*(len(a))
+    f[0] = 1
+    for i in range(1, len(a)):
+        maximum = 0
+        for k in range(i):
+            if a[i] > a[k] and f[k] > maximum:
+                maximum = f[k]
+        f[i] = maximum + 1
+    return f[-1]
 ```
+
 
 ---
 [К оглавлению](#contents)
