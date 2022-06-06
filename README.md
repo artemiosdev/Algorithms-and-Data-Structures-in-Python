@@ -2460,6 +2460,8 @@ def gis(a):
 
 <img alt="image" src="images/Редакционное расстояние между строками (Левенштейна) реализация.jpg"> </img>
 
+**Асимптотика алгоритма `O (M * N)`**
+
 ```python
 def levenstein(A,B):
     # создаем строки, и крайние случаи
@@ -2474,28 +2476,78 @@ def levenstein(A,B):
                 F[i][j] = 1 + min(F[i-1][j], F[i][j-1], F[i-1][j-1])
     return F[len(A)][len(B)]
 
+A = "колокол"
+B = "молоко"
+print(levenstein(A,B)) # 2
+
+D = "кол"
+C = "кот"
+print(levenstein(D,C)) # 1
 ```
 
+***Проверка равенства строк***
 
-<img alt="image" src="images/.jpg"> </img>
+Простой подход -> если длины строк не равны, значит и сами строки разные. Далее поэлементное сравнение. Асимптотика `O(N)`
+
 ```python
+def equal(A,B):
+    if len(A) != len(B):
+        return False
+    for i in range(len(A)):
+        if A[i] != B[i]:
+            return False
+    return True
 
+D = "кол"
+C = "кол"
+print(equal(D,C)) # true
+
+I = "кол"
+F = "кот"
+print(equal(I,F)) # false
+```
+
+***Наивный поиск подстроки в строке***
+
+**Асимптотика `O(N * M)`**
+
+```python
+def equal(A,B):
+    if len(A) != len(B):
+        return False
+    for i in range(len(A)):
+        if A[i] != B[i]:
+            return False
+    return True
+
+def search_substring(s, sub):
+    for i in range(0, len(s) - len(sub)):
+        if equal(s[i:i+len(sub)], sub):
+            print("Подстрока начинается с позиции:", i)
+
+s = "catdogcat"
+sub = "dog"
+search_substring(s, sub)
 ```
 
 ```bash
 Result:
-
+Подстрока начинается с позиции: 3
 ```
 
-<img alt="image" src="images/.jpg"> </img>
-```python
+***Префиксная функция П строки***
 
-```
+<img alt="image" src="images/Префиксная функция П строки.jpg"> </img>
 
-```bash
-Result:
+<img alt="image" src="images/Префиксная функция П строки реализация.jpg"> </img>
 
-```
+**Суффикс** это окончание строки. 
+
+Собственный суффикс - это суффикс, который не совпадает со всей строкой. Суффикс не равный строке. 
+
+***Алгоритм Кнута-Морриса-Пратта(КМП)***
+
+<img alt="image" src="images/Алгоритм Кнута-Морриса-Пратта(КМП).jpg"> </img>
 
 ---
 [К оглавлению](#contents)
