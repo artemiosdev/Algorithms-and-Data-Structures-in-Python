@@ -2545,46 +2545,282 @@ Result:
 
 Собственный суффикс - это суффикс, который не совпадает со всей строкой. Суффикс не равный строке. 
 
+Подробнее о [Префикс-функция](https://www.youtube.com/watch?v=xAYmgdB-8Fg&ab_channel=OleksandrTsymbaliuk)
 ***Алгоритм Кнута-Морриса-Пратта(КМП)***
 
 <img alt="image" src="images/Алгоритм Кнута-Морриса-Пратта(КМП).jpg"> </img>
 
 ---
 [К оглавлению](#contents)
-### <a id="lection13" />Лекция №13
 
-<img alt="image" src="images/.jpg"> </img>
+### <a id="lection13" />Лекция №13. Стек. Автоматическое тестирование функций модуля (библиотека doctest). Проверка корректности скобочной последовательности. Обратная Польская нотация
+
+***[Стек или очередь LIFO](https://ru.wikipedia.org/wiki/LIFO)***
+
+last in, first out, «последним пришёл — первым ушёл»
+
+Модуль описывающий структуру данных - стек
+
+<img alt="image" src="images/stack.jpg"> </img>
+
 ```python
+"""
+Модуль, описывающий структуру данных - стек
+>>> clear()
+>>> is_empty()
+True
+>>> push(1)
+>>> push(2)
+>>> push(3)
+>>> is_empty()
+False
+>>> pop()
+3
+>>> pop()
+2
+>>> pop()
+1
+>>> is_empty()
+True
+"""
 
+_stack = []
+
+def push(x):
+    """
+    Добавляет элемент х в конец стека
+    >>> size = len(_stack)
+    >>> push(5)
+    >>> len(_stack) - size
+    1
+    >>> _stack[-1]
+    5
+    """
+    _stack.append(x)
+    
+def pop():
+    x = _stack.pop()
+    return x
+    
+def clear():
+    _stack.clear()
+    
+def is_empty():
+    return len(_stack) == 0
+    
+# запускает описанную выше реализацию в ковычках
+# встроенное тестирование в языке
+# благодаря verbose=True мы включаем отображение всех тестов
+# иначе молчаливое, т.е отображает только когда есть ошибки
+if __name__ == "__main__":
+    import doctest
+    doctest.testmod(verbose=True)
 ```
 
 ```bash
 Result:
-
+Trying:
+    clear()
+Expecting nothing
+ok
+Trying:
+    is_empty()
+Expecting:
+    True
+ok
+Trying:
+    push(1)
+Expecting nothing
+ok
+Trying:
+    push(2)
+Expecting nothing
+ok
+Trying:
+    push(3)
+Expecting nothing
+ok
+Trying:
+    is_empty()
+Expecting:
+    False
+ok
+Trying:
+    pop()
+Expecting:
+    3
+ok
+Trying:
+    pop()
+Expecting:
+    2
+ok
+Trying:
+    pop()
+Expecting:
+    1
+ok
+Trying:
+    is_empty()
+Expecting:
+    True
+ok
+Trying:
+    size = len(_stack)
+Expecting nothing
+ok
+Trying:
+    push(5)
+Expecting nothing
+ok
+Trying:
+    len(_stack) - size
+Expecting:
+    1
+ok
+Trying:
+    _stack[-1]
+Expecting:
+    5
+ok
+3 items had no tests:
+    __main__.clear
+    __main__.is_empty
+    __main__.pop
+2 items passed all tests:
+  10 tests in __main__
+   4 tests in __main__.push
+14 tests in 5 items.
+14 passed and 0 failed.
+Test passed.
 ```
 
-<img alt="image" src="images/.jpg"> </img>
-```python
+***Проверка корректности скобочной последовательности.***
 
+<img alt="image" src="images/Проверка корректности скобочной последовательности.jpg"> </img>
+
+```python
+A_stack = []
+
+def is_braces_sequence_correct(s:str):
+    """
+    Проверяет корректность скобочной последовательности
+    из круглых и квадратных скобок () []
+    
+    >>> is_braces_sequence_correct("(([()]))")
+    True
+    >>> is_braces_sequence_correct("([)]")
+    False
+    >>> is_braces_sequence_correct("(")
+    False
+    >>> is_braces_sequence_correct("]")
+    False
+    """
+    for brace in s:
+        if brace not in "()[]":
+            continue
+        if brace in "([":
+            A_stack.push(brace)
+        else:
+            assert brace in ")]", "Ожидалась закрывающая скобка: " + str(brace)
+            if A_stack.is_empty():
+                return False
+            left = A_stack.pop()
+            assert left in "([", "Ожидалась открывающая скобка: " + str(brace)
+            if left == "(":
+                right = ")"
+            elif left == "[":
+                right = "]"
+            if right != brace:
+                return False
+    
+    return A_stack.is_empty()
+
+if __name__ == "__main__":
+    import doctest
+    doctest.testmod(verbose=True)
+```
+
+***Обратная Польская нотация(ОПН)***
+
+<img alt="image" src="images/Обратная Польская нотация.jpg"> </img>
+
+```python
+import math
+import operator
+
+ops = {'+': operator.add,
+       '-': operator.sub,
+       '*': operator.mul,
+       '/': operator.truediv,
+       '^': operator.pow,
+       'sin': math.sin,
+       'tan': math.tan,
+       'cos': math.cos,
+       'pi': math.pi}
+
+def is_number(s):
+    try:
+        float(s)
+        return True
+    except ValueError:
+        pass
+
+def calculate(equation):
+    stack = []
+    result = 0
+    for token in equation:
+        if is_number(token):
+            stack.insert(0, token)
+        else:
+            if len(stack) < 2:
+                print('Error: insufficient values in expression')
+                break
+            else:
+                print('stack: %s' % stack)
+                if len(token) == 1:
+                    n1 = float(stack.pop(1))
+                    n2 = float(stack.pop(0))
+                    result = ops[token](n1, n2)
+                    stack.insert(0, str(result))
+                else:
+                    n1 = float(stack.pop(0))
+                    result = ops[token](math.radians(n1))
+                    stack.insert(0, str(result))
+    return result
+
+def main():
+    running = True
+    while running:
+        equation = input('enter the equation: ').split(' ')
+        answer = calculate(equation)
+        print('RESULT: %f' % answer)
+        again = input('\nEnter another? ')[0].upper()
+        if again != 'Y':
+            running = False
+
+if __name__ == '__main__':
+    main()
 ```
 
 ```bash
 Result:
+enter the equation: 2 3 +
+stack: ['3', '2']
+RESULT: 5.000000
 
-```
+Enter another? Y
+enter the equation: 2 5 7 * +
+stack: ['7', '5', '2']
+stack: ['35.0', '2']
+RESULT: 37.000000
 
-```python
-
-```
-
-```bash
-Result:
-
+Enter another? 
 ```
 
 ---
 [К оглавлению](#contents)
-### <a id="lection14" />Лекция №14
+### <a id="lection14" />Лекция №14. Тип list. Изменяемость списка. Тип кортежа tuple как замороженный список. Насколько не изменяем кортеж?. Список кортежей и цикл for с двумя переменными. Тип строк str. Неизменяемость строки. Методы строки find, count, replace. Срезы строк и списков. Присваивание в срез списка. Стандартные функции len, max, min, sum. Методы split и join. Структура данных Куча/Пирамида (Heap)
 
 <img alt="image" src="images/.jpg"> </img>
 ```python
