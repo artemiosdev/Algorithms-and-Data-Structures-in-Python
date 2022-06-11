@@ -2881,62 +2881,128 @@ Enter another?
 
 <img alt="image" src="images/Heap - Пирамида - Куча.jpg"> </img>
 
-```python
-
-```
-
-```bash
-Result:
-
-```
-
-```python
-
-```
-
-```bash
-Result:
-
-```
 ---
 [К оглавлению](#contents)
-### <a id="lection15" />Лекция №15
+### <a id="lection15" />Лекция №15. Асимптотика алгоритмов (потребление ресурсов) . Индуктивные функции. Однопроходные алгоритмы. NP- полные задачи. Тест простоты Ферма. Числа Кармайкла. Алгоритм шифрования RSA
+
+***Классификация алгоритмов, принимают на вход, значение на выходе***
+
+<img alt="image" src="images/Классификация алгоритмов по приему возврату.jpg"> </img>
+
+***Индуктивные функции. Однопроходные алгоритмы***
+
+Индуктивное умозаключение — это процесс логического вывода на основе перехода от частного положения к общему.
+
+Полная индукция — метод доказательства, при котором утверждение доказывается для конечного числа частных случаев, исчерпывающих все возможности.
+
+Неполная индукция — наблюдения за отдельными частными случаями наводит на гипотезу, которая нуждается в доказательстве.
+
+Математическая индукция — метод доказательства для последовательности натуральных чисел либо объектов, однозначно занумерованных натуральными числами.
+
+F - большая и будет индуктивной функцией, она обеспечивает индукцию, т.е мы вычисляем маленькую последовательность и на ее основе (индуктивной функции) уже вычисляем другую последовательность. Среднеарифметическое нельзя вычислить по старому + новое зачение, таким образом, но есть другие варианты применения.
+
+<img alt="image" src="images/.jpg"> </img>
+
+<img alt="image" src="images/.jpg"> </img>
 
 ---
 [К оглавлению](#contents)
 ### <a id="lection16" />Лекция №16
 
+<img alt="image" src="images/.jpg"> </img>
+
+<img alt="image" src="images/.jpg"> </img>
+
+<img alt="image" src="images/.jpg"> </img>
+
 ---
 [К оглавлению](#contents)
 ### <a id="lection17" />Лекция №17
+
+<img alt="image" src="images/.jpg"> </img>
+
+<img alt="image" src="images/.jpg"> </img>
+
+<img alt="image" src="images/.jpg"> </img>
+
+
 
 ---
 [К оглавлению](#contents)
 ### <a id="lection18" />Лекция №18
 
+<img alt="image" src="images/.jpg"> </img>
+
+<img alt="image" src="images/.jpg"> </img>
+
+<img alt="image" src="images/.jpg"> </img>
+
+
 ---
 [К оглавлению](#contents)
 ### <a id="lection19" />Лекция №19
+
+<img alt="image" src="images/.jpg"> </img>
+
+<img alt="image" src="images/.jpg"> </img>
+
+<img alt="image" src="images/.jpg"> </img>
+
 
 ---
 [К оглавлению](#contents)
 ### <a id="lection20" />Лекция №20
 
+<img alt="image" src="images/.jpg"> </img>
+
+<img alt="image" src="images/.jpg"> </img>
+
+<img alt="image" src="images/.jpg"> </img>
+
+
 ---
 [К оглавлению](#contents)
 ### <a id="lection21" />Лекция №21
+
+<img alt="image" src="images/.jpg"> </img>
+
+<img alt="image" src="images/.jpg"> </img>
+
+<img alt="image" src="images/.jpg"> </img>
+
 
 ---
 [К оглавлению](#contents)
 ### <a id="lection22" />Лекция №22
 
+<img alt="image" src="images/.jpg"> </img>
+
+<img alt="image" src="images/.jpg"> </img>
+
+<img alt="image" src="images/.jpg"> </img>
+
+
 ---
 [К оглавлению](#contents)
 ### <a id="lection23" />Лекция №23
 
+<img alt="image" src="images/.jpg"> </img>
+
+<img alt="image" src="images/.jpg"> </img>
+
+<img alt="image" src="images/.jpg"> </img>
+
+
 ---
 [К оглавлению](#contents)
 ### <a id="lection24" />Лекция №24
+
+<img alt="image" src="images/.jpg"> </img>
+
+<img alt="image" src="images/.jpg"> </img>
+
+<img alt="image" src="images/.jpg"> </img>
+
 
 ---
 [К оглавлению](#contents)
