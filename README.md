@@ -2872,6 +2872,15 @@ Enter another?
 
 <img alt="image" src="images/Срезы строк и списков.jpg"> </img>
 
+У среза с 2 параметрами ошибок не будет, даже если он не попадает в диапозон и там нет чисел, получим просто пустой срез. 
+
+<img alt="image" src="images/Срезы примеры.jpg"> </img>
+<img alt="image" src="images/Срезы примеры2.jpg"> </img>
+
+***Куча/Пирамида (Heap)***
+
+<img alt="image" src="images/Heap - Пирамида - Куча.jpg"> </img>
+
 ```python
 
 ```
