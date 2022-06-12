@@ -3006,11 +3006,11 @@ public long GetSum(int[] items)
 
 Когда мы говорим о сортировке, мы можем учитывать как сравнения, так и выделения и присваивания. В таких случаях мы будем явно указывать, какие операции мы рассматриваем.
 
-<img alt="image" src="images/.jpg"> </img>
+<img alt="image" src="images/Время выполнения алгоритмов.jpg"> </img>
 
-<img alt="image" src="images/.jpg"> </img>
+<img alt="image" src="images/Big-O Complexity Chart.jpg"> </img>
 
-<img alt="image" src="images/.jpg"> </img>
+<img alt="image" src="images/big-o-cheat-sheet-poster.png"> </img>
 
 ***NP*** - полные задачи, не имеющие решения.
 
