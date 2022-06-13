@@ -2130,9 +2130,6 @@ draw(400, 5)
 
 <img alt="image" src="images/фрактал1.gif"> </img>
 
-<img alt="image" src="images/фрактал2.gif"> </img>
-
-<img alt="image" src="images/фрактал3.gif"> </img>
 
 
 
