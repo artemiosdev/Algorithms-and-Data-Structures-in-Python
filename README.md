@@ -4203,6 +4203,331 @@ class Vector:
 [К оглавлению](#contents)
 ### <a id="lection23" />Лекция №23
 
+Общая информация
+"Веб-программирование" включает в себя огромное множество различных понятий, языков и инструментов. Цель данной лабораторной - знакомство с основными из них.
+
+Библиотеки
+В данной работе нам потребуются библиотеки Falsk и Pubnub, начнем с их установки. Необходимо выполнить в консоли следующее:
+
+pip3 install --user http://judge.mipt.ru/mipt_cs_on_python3/pip/{pycryptodomex-3.5.1-cp35-cp35m-manylinux1_i686.whl,pubnub-4.0.13.tar.gz,Flask-0.12.2-py2.py3-none-any.whl}
+(заметка для преподавателя: при нехватке зависимостей, обратится к @senya, я долью)
+
+HTML
+HTML - HyperText Markup Language - язык разметки гипертекста. HTML - это язык, на котором пишутся привычные нам веб-страницы. Документ на HTML состоит из тегов. Теги могут быть парные и одинарные.
+
+Одинарные теги имеет вид <тег>, например тег <br> - перевод строки и тег <input> - поле ввода для html-форм. Выглядит он так:
+
+html
+Парные теги имеют вид <тег>содержание</тег>, например тег <b>, задающий жирный шрифт, используется так: обычный шрифт<b>жирный шрифт</b>, а выглядит так:
+
+html
+обычный шрифтжирный шрифт
+Теги также могут иметь атрибуты - дополнительные параметры, задающие поведение и отображение соответствующего элемента. Атрибуты имеют вид имя="значение" и задаются вместе с именем тега, через пробел, в виде <тег аттрибут1="значение1" аттрибут2="значение2">, например
+
+<input type="password"> - это будет уже не обычное поле ввода, а поле ввода пароля, где вместо букв будут отображаться звездочки.
+
+html
+<a href="http://acm.mipt.ru">acm</a> - тег <a>, ссылка. Аттрибут href задает адрес ссылки.
+
+html
+acm
+Теги можно вкладывать друг в друга: <a href="http://acm.mipt.ru"><b>acm</b> поиск</a>.
+
+html
+acm поиск
+Структура HTML документа
+Общую структуру можно увидеть на следующем примере:
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>Page Title</title>
+</head>
+<body>
+
+<h1>This is a Heading</h1>
+<p>This is a paragraph.</p>
+
+</body>
+</html>
+Первый тег - особенный, тег <!DOCTYPE>. Она задает стандарт HTML, который используется в документе. <!DOCTYPE html> - это заголовок для последней на данный момент версии HTML5 (HTML5.1, HTML5.2). Этот тег не обязателен (как, в общем и все остальные теги в этом примере), но крайне желателен: без него поведение браузера не определено, каждый браузер будут действовать в соответствии со своими представлениями.
+
+Парный тег <html> включает в себя весь документ. Парный тег <head> включает в себя различные мета-данные для страницы - это элементы, которые непосредственно на странице не отображаются. Например, тег <title> задает заголовок окна (или вкладки) браузера.
+
+Парный тег <body> включает в себя всю отображаемую часть документа.
+
+Теги <html>, <head>, <body> не обязательны, браузер умеет добавлять их автоматически.
+
+CSS
+Многообразие вебстраниц порождается многообразием стилей оформления элементов, начиная с выбора размера шрифта и заканчивая цветом рамочек, закругленными углами кнопок а также размерами и положением всех элементов. Изначально, стили задавались различными атрибутами тегов, например так:
+
+<font size="2" color="blue"><b>This is some text!</b></font>
+html
+This is some text!
+Такой подход перегружает текст документа. Становится сложно что-то найти, что-то изменить. Например, если у нас все заголовки оформлены как указано выше, то, чтобы заменить цвет заголовков на красный, нам придется пройтись по всем заголовкам и все исправить. CSS - Cascading Style Sheets — каскадные таблицы стилей, призваны решить эту проблему. А именно, будем описывать стили элементов (и даже, отчасти, расположение) отдельно от основного документа. Синтаксис следующий:
+
+селектор, селектор {
+    свойство: значение;
+    свойство: значение;
+    свойство: значение;
+}
+С помощью различных селекторов, мы выбираем множество html-элементов, для которых мы хотим задать значения свойств.
+
+Пример:
+
+css:
+
+h1 {
+    font-size: small;
+    color: blue;
+    font-weight: bold;
+}
+html:
+
+<h1> Заголовок 1 </h1>
+Какой-то текст
+
+<h1> Заголовок 2 </h1>
+Какой-то другой текст
+html
+Заголовок 1
+Какой-то текст
+Заголовок 2
+Какой-то другой текст
+Теперь мы легко можем поменять стиль всех заголовков. CSS можно задавать как и в отдельном файле, тогда он подключается в HTML тегом <link rel="stylesheet" type="text/css" href="theme.css">, либо прямо в html-документе, в теге <style>...</style>. Оба тега должны использоваться в секции <head>...</head>.
+
+Javascript
+Красивые заголовки и кнопочки - это замечательно. Но кто позаботится об обработке кликов по этим самым кнопочкам? Скрипты на языке javascript могут использоваться в html страницах и выполняются непосредственно браузером. Javascript похож на python своей ссылочной моделью. Блоки кода выделяются парами фигурных скобок, а не отступами. Рассмотрим несколько примеров.
+
+<div onclick="if (this.style.color=='red') { this.style.color='green'; this.innerText='Green' } else { this.style.color='red'; this.innerText='Red' }">Кликните по мне</div>
+html
+Кликните по мне
+Атрибут onclieck задает код, который выполнится при клике мышью. При этом this - будет ссылкой на тот элемент, который кликнули. this.style - объект, предстваляющий стиль элемента, тот самый который мы можем задавать с помощью CSS. Конечно, задавать код непосредственно внутри тегов крайне не удобно. Перепишем пример, используя функцию:
+
+<script>
+var flag = true;
+function toggle(self) {
+    if (flag) {
+        self.style.color = 'red';
+        self.innerText = 'Red';
+    } else {
+        self.style.color = 'green';
+        self.innerText = 'Green';
+    }
+    flag = !flag;
+}
+</script>
+
+<div onclick="toggle(this)">Green</div>
+html
+Green
+Итак, скрипты можно писать в теге <script>. Можно и подключать отдельные файлы со скриптами, так: <script src="http://address-of-script.js"></script>. Заметьте, тег <script> парный, закрывающий тег </script> обязателен, даже если внутри тега ничего нет. А вот тот же пример, но уже с использованием CSS:
+
+<style>
+.one {
+    color: red;
+    font-weight: 'bold';
+    border: 1px solid black;
+}
+.two {
+    color: green;
+    font-style: 'italics';
+    border: 3px dashed red;
+}
+</style>
+
+<script>
+var flag = true;
+function toggle(self) {
+    if (flag) {
+        self.className = 'one';
+        self.innerText = 'Red';
+    } else {
+        self.className = 'two';
+        self.innerText = 'Green';
+    }
+    flag = !flag;
+}
+</script>
+
+<span onclick="toggle(this)">Green</span>
+html
+Green
+Селектор CSS вида .класс выбирает элементы по "классу". Класс можно задавать в html, с помощью атрибута class или в javascript, в атрибут className элемента.
+
+Вот пример, где мы изменяем наш документ с помощью javascript.
+
+<script>
+
+function click() {
+    document.getElementById('my-div').innerHTML += '<br><a href="http://acm.mipt.ru">acm.mipt.ru</a>';
+}
+
+</script>
+
+<button onclick="click()">кнопка</button>
+<div id="my-div"></div>
+html
+кнопка
+Базовая объектная модель html документа достаточно громоздка. Чего только стоит document.getElementById('my-div').innerHTML. Для упрощения жизни существует библиотека jQuery. Библиотека определяет одну единственную функцию $ (да, javascript разрешает такие имена), в которой содержится вся функциональность. Вот пример ее использования, в котором html-код свободен уже не только от стилей но и от событий, а занимается исключительно версткой элементов и их содержимым.
+
+<script src="http://judge.mipt.ru/mipt_cs_on_python3/jslib/jquery-3.3.1.min.js"></script>
+
+<style>
+.one {
+    color: red;
+    font-weight: 'bold';
+    border: 1px solid black;
+}
+.two {
+    color: green;
+    font-style: 'italics';
+    border: 3px dashed red;
+}
+</style>
+
+<script>
+$(function() {
+    $('#one').click(function() {
+        $('#one').toggleClass('one');
+        $('#one').toggleClass('two');
+        $('#another').append('<br><a href="http://acm.mipt.ru">acm.mipt.ru</a>');
+  })
+})
+</script>
+
+<span id="one" class="one">Green</span><br>
+<span id="another">Another</span>
+html
+Green
+Another
+Flask
+Как же сделать сайт? Оказывается одних только html, css и js не достаточно. Сайты, да и многие другие сетевые приложения используют модель клиент-сервер. Это значит, что у нас есть две отдельные части: сервер - приложение, которое, в случае сайта, запускается на машине хозяина сайта и клиент - часть приложения, которая работает непосредственно на машине пользователя. В случае с сайтом, клиентская часть представлена браузером, а также всеми html, css, js и прочим содержимым, которое браузер скачивает и выполняет на машине пользователя. Существует множество способов написать web-сервер. Один из них - модуль Flask для Python.
+
+Рассмотрим такой пример
+
+from flask import Flask
+from flask import render_template_string
+from flask import request
+app = Flask(__name__)
+
+log = ''
+
+templ = """
+<!DOCTYPE html>
+<div>
+{{ log }}
+</div>
+<form action="/" method="POST">
+<input name="msg">
+<input type="submit" value="send">
+</form>
+"""
+
+@app.route('/', methods=['GET', 'POST'])
+def hello_world():
+    global log
+    if request.method == 'POST':
+        log += request.form['msg'] + '<br>'
+
+    return render_template_string(templ, log=log)
+
+
+if __name__ == '__main__':
+    app.run()
+Еще пример.
+
+from flask import Flask
+from flask import request
+from flask import url_for
+app = Flask(__name__)
+
+log = ''
+
+@app.route('/')
+def index():
+    return app.send_static_file('client2.html')
+
+
+@app.route('/log')
+def get_log():
+    global log
+    return log
+
+@app.route('/send', methods=['POST'])
+def send():
+    global log
+    print request.form
+    log += request.form['msg'] + '<br>'
+    return log
+
+if __name__ == '__main__':
+    app.run()
+static/script2.js
+
+function update() {
+  $.get('log', function(data) {
+    $('#chat').html(data);
+  });
+}
+
+$(function() {
+  $('#send').click(function() {
+    $.post('/send', {'msg': $('#msg').val()}, update);
+  })
+
+  setInterval(update, 1000);
+})
+static/client2.html
+
+<!DOCTYPE html>
+
+<script src="http://judge.mipt.ru/mipt_cs_on_python3/jslib/jquery-3.3.1.min.js"></script>
+<script src="static/script2.js"></script>
+
+<div id="chat"></div>
+<input id="msg">
+<button id="send">send</button>
+Pubnub
+Сервер это здорово. Но иногда нет большой нужды писать его. Допустим, хотим написать чат на Python. Можно написать простенький сервер на Flask, но что дальше? Можно запустить его в локальной сети, тогда будет чат по локальной сети. А как на счет чата через интернет? Тут уже нужна машина с белым ip, т.е. доступная из интернета. Придется искать хостинг для вашего сервера, грузить его туда.. Вместо этого, можно использовать BAAS. BAAS - Backend As A Service. Это значит, что кто предоставляет нам бэк-энд (т.е. серверную часть приложения) как сервис, как услугу. Сервер уже есть и работает, можно использовать! Один из примеров таких BAAS - Pubnub.com. Этот бэкенд позволяет создавать каналы передачи сообщений. Простое api позволяет писать в канал и получать данные из канала. Все, сервер писать уже не придется. Рассмотрим пример.
+
+a.py
+
+from pubnub import Pubnub
+
+PUB_KEY = 'pub-c-bab40884-15d8-42a3-8675-21d381efc60e'
+SUB_KEY = 'sub-c-d3ff6da6-faa9-11e5-8180-0619f8945a4f'
+
+pubnub = Pubnub(publish_key=keys.PUB_KEY, subscribe_key=keys.SUB_KEY)
+
+def _callback(message, channel):
+    print(message)
+
+def _error(message):
+    print(message)
+
+pubnub.subscribe(channels="my_channel_sf23", callback=_callback, error=_error)
+
+while True:
+    pass
+Это приложение подписывается на канал "my_channel_sf23" в рамках аккаунта, заданного ключами PUB_KEY и SUB_KEY, и печатает все ошибки и сообщения, которые через него получает. Чтобы получить свои ключи, необходимо зарегистрироваться на pubnub.com.
+
+import keys
+from pubnub import Pubnub
+
+PUB_KEY = 'pub-c-bab40884-15d8-42a3-8675-21d381efc60e'
+SUB_KEY = 'sub-c-d3ff6da6-faa9-11e5-8180-0619f8945a4f'
+
+pubnub = Pubnub(publish_key=keys.PUB_KEY, subscribe_key=keys.SUB_KEY)
+
+def callback(message):
+    print(message)
+
+pubnub.publish('my_channel_sf23', 'Hello from PubNub Python SDK!', callback=callback, error=callback)
+
+while True:
+    pubnub.publish('my_channel_sf23', input(), callback=callback, error=callback)
+Это приложение отправляет в канал "my_channel_sf23" различные сообщения, в основном те, которые пользователь вводит с клавиатуры. По pubnub каналам можно передавать не только строки но и другие json-сериализуемые объекты.
 
 <img alt="image" src="images/.jpg"> </img>
 
@@ -4253,7 +4578,7 @@ for k in range(n):
     for i in range(n):
         for j in range(n):
             d[i][j] = min(d[i][j], d[i][k]+d[k][j])
-```            
+```
 
 ***Алгоритм Дейкстры***
 
