@@ -4188,14 +4188,25 @@ while p is not None:
 
 Создадим класс односвязанного списка 
 
-улучшить картинку, перепечатать с нее код, дослушать лекцию
+<img alt="image" src="images/Создадим класс односвязанного списка.jpg"> </img>
+
 ```python
-
+class LinkedList:
+    def __init__(self):
+        self._begin = None
+    def insert(self, x):
+        self._begin = [x, self._begin]
+    def pop(self):
+        assert self._begin is not None, "List empty"
+        x = self._begin[0]
+        self._begin = self._begin[1]
+        return x
+a = LinkedList()
+a.insert(5)
+a.insert(10)
+print(a.pop()) # 10
+print(a.pop()) # 5
 ```
-
-<img alt="image" src="images/.jpg"> </img>
-
-
 
 ---
 [К оглавлению](#contents)
