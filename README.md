@@ -4791,6 +4791,29 @@ Two 6
 [('One', 27), ('Two', 6)]
 ```
 
+Еще варианты решения:
+
+```python
+num_votes = {}
+for _ in range(int(input())):
+    candidate, votes = input().split()
+    num_votes[candidate] = num_votes.get(candidate, 0) + int(votes)
+
+for candidate, votes in sorted(num_votes.items()):
+    print(candidate, votes)
+```
+
+```python
+my_dict = {}
+n = input()
+for i in range(int(n)):
+    candidate , votes = input().split()
+    my_dict[candidate] = my_dict.get(candidate, 0) + int(votes)
+
+for j, k in sorted(my_dict.items()):
+    print(j,k)
+```
+
 ---
 [К оглавлению](#contents)
 ### <a id="lection22" />Лекция №22. Графы
