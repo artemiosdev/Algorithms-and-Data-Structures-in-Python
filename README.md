@@ -4602,7 +4602,7 @@ class HashTable:
 
 ***Коллекции в Python 3***
 
-- ***Tuple Кортеж*** `x,y = y,x` or `x,y = f(x,y)
+- ***Tuple Кортеж*** `x,y = y,x` or `x,y = f(x,y)`
 - ***"Список" List*** имеет под капотом динамический массив ссылок. `a.append(x)`, `a[i]` за  `O(1)`. (В языке C++ как раз таки list это полноценный двухсвязный список).
 - ***Множество Set*** - хеш-таблица, работает за `O(1)`, `hash(x)`
 - ***Словарь Dict*** - хеш-таблица, работает за `O(1)`, `hash(x)`
@@ -4755,6 +4755,40 @@ three 3
 
 # можно скопировать ключи D в новый объект для себя
 A = set(D.key())
+```
+
+Частотный анализ словаря по строкам, использование словаря. Задача "Выборы в президенты"
+
+```python
+# N - кол-во бюллетеней
+n = int(input())
+votes = {}
+for i in range(n):
+    name, value = input().split()
+    if name in votes:
+        votes[name] += int(value)
+    else:
+        votes[name] = int(value)
+for name, value in sorted(votes.items()):
+    print(name, value)
+
+# чтобы обратно получить список пар значений
+# items возвращает итерируемый список ключ-значение
+A = list(votes.items())
+```
+
+Result:
+```bash
+5
+One 10
+Two 5
+One 9
+One 8
+Two 1
+
+One 27
+Two 6
+[('One', 27), ('Two', 6)]
 ```
 
 ---
