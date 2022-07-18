@@ -5802,13 +5802,67 @@ for i in range(len(letters)):
                 add_edge(v1, v2)
 ```
 
-<img alt="image" src="images/.jpg"> </img>
+***Нахождение кратчайшего цикла***
 
-<img alt="image" src="images/.jpg"> </img>
+1. Запускаем обход в ширину из каждой вершины
+2. Как только пытаемся попасть в посещенную вершину - значит есть цикл
+3. Запустив обход из каждой вершины выбираем кратчайший
 
-<img alt="image" src="images/.jpg"> </img>
+***Нахождение всех ребер на кратчайшем пути `(a,b)`***
 
-<img alt="image" src="images/.jpg"> </img>
+1. Запускаем обходы в ширину из `а` и из `b` с подсчетом расстояний
+2. Расстояния до вершины `х` храним как `d_a[x]` и `d_b[x]`
+3. Для ребра `(u,v)` проверяем `d_a[u] + 1 + d_b[v] = d_a[b]`
+4. Если равенство выполнено, то ребро лежит на кратчайшем пути
+
+***Нахождение всех вершин на кратчайшем пути (a,b)***
+
+1. Запускаем обходы в ширину из `а` и из `b` с подсчетом расстояний
+2. Расстояния до вершины `х` храним как `d_a[x]` и `d_b[x]`
+3. Если `d_a[x] + d_b[x] = d_a[b]`, то вершина лежит на кратчайшем пути
+
+### Кратчайший путь четной длины
+
+<img alt="image" src="images/Кратчайший путь четной длины.jpg"> </img>
+
+#### Построение цепочки друзей-код на примере VK API
+
+<img alt="image" src="images/Построение цепочки друзей-код1.jpg"> </img>
+
+<img alt="image" src="images/Построение цепочки друзей-код2.jpg"> </img>
+
+```python
+# Построение цепочки друзей - код
+import requests # делать запросы
+import time # делать задержки между запросами
+from tqdm import tqdm # progress bar
+
+HOST = 'https://api.vk.com/method/'
+VERSION = '5.74'
+access_token = 'TOKEN HERE'
+
+def get_friends_id(user_id):
+    r = requests.get(HOST + 'friends.get', params={'user_id': user_id, 'access_token': access_token, 'v': VERSION})
+    if 'response' in r.json():
+        return r.json()['response']['items']
+    return []
+
+queue = deque(get_friends_id(id_start))
+
+parents = {user:id_start for user in queue}
+distances = {user:1 for user in queue}
+
+while id_end not in distances:
+    cur_user = queue.popleft()
+    new_users = get_friends_id(cur_user)
+    time.sleep(0.5)
+    for u in tqdm(new_users):
+        if u not in distances:
+            queue.append(u)
+            distances[u] = distances[cur_user] + 1
+            parents[u] = cur_user
+```
+
 
 
 ---
