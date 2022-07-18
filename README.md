@@ -5693,21 +5693,104 @@ print(distances) # смотрим что получилось
 4. Если остались еще непосещенные вершины, повторяем шаги 2-3, сохраняя при этом массив посещенных вершин `used`
 5. Если все вершины посещены, завершаем. Время по-прежнему `O(N+M)`
 
+### Восстановление кратчайшего пути
 
+<img alt="image" src="images/Восстановление кратчайшего пути.jpg"> </img>
 
+<img alt="image" src="images/Восстановление кратчайшего пути пример кода.jpg"> </img>
 
-<img alt="image" src="images/.jpg"> </img>
+```python
+start_vertex = 0
+end_vertex = 2
 
-<img alt="image" src="images/.jpg"> </img>
+parents = [None] * N
+distances = [None] * N
+distances [start_vertex] = 0
+queue = deque([start_vertex])
 
-<img alt="image" src="images/.jpg"> </img>
+while queue:
+    u = queue.popleft()
+    for v in graph[u]:
+        if distances[v] is None:
+            distances[v] = distances[u] + 1
+            parents[v] = u
+            queue.append(v)
+path = [end_vertex]
+parent = parents[end_vertex]
+while not parent is None:
+    path.append(parent)
+    parent = parents[parent]
+print(path[::-1])
+```
 
-<img alt="image" src="images/.jpg"> </img>
+### Восстановление траектории шахматного коня
 
-<img alt="image" src="images/.jpg"> </img>
+<img alt="image" src="images/Восстановление траектории шахматного коня.jpg"> </img>
 
+Имеем 64 вершины, и ребра буквой Г т.е как ходит конь. Граф невзвешенный и неориентированный. Вершины будем именовать в шахматной терминалогии.  
 
-Заполнение графа в задаче с конем для приверженцев DRY (типа меня):
+<img alt="image" src="images/Восстановление траектории шахматного коня2.jpg"> </img>
+
+<img alt="image" src="images/Восстановление траектории шахматного коня3.jpg"> </img>
+
+<img alt="image" src="images/Восстановление траектории шахматного коня4.jpg"> </img>
+
+<img alt="image" src="images/Восстановление траектории шахматного коня5.jpg"> </img>
+
+```python
+# Конь: создаем граф
+letters = 'abcdefgh'
+numbers = '12345678'
+graph = dict()
+graph = {l+n:set() for l in letters for n in numbers}
+
+def add_edge(vl, v2):
+    graph[v1].add(v2)
+    graph[v2].add(v1)
+    
+    for i in range(8):
+        for j in range(8):
+            v1 = letters[i] + numbers[j]
+            v2 = ''
+            if 0 <= i + 2 < 8 and 0 <= j + 1 < 8:
+                v2 = letters[i+2] + numbers[j+1]
+                add_edge(v1, v2)
+            if 0 <= i - 2 < 8 and 0 <= j + 1 < 8:
+                v2 = letters[i-2] + numbers[j+1]
+                add_edge(v1, v2)
+            if 0 <= i + 1 < 8 and 0 <= j + 2 < 8:
+                v2 = letters[i+l] + numbers[j+2]
+                add_edge(vl, v2)
+            if 0 <= i - 1 < 8 and 0 <= j + 2 < 8:
+                v2 = letters[i-l] + numbers[j+2]
+                add_edge(v1, v2)
+                
+start_vertex = 'd4'
+end_vertex = 'f7'
+
+parents = {v: None for v in graph}
+distances = {v: None for v in graph}
+
+distances[start_vertex] = 0
+queue = deque([start_vertex])
+
+while queue:
+    u = queue.popleft()
+    for v in graph[u]:
+        if distances[v] is None:
+            distances[v] = distances[u] + 1
+            parents[v] = u
+            queue.append(v)
+path = [end_vertex]
+parent = parents[end_vertex]
+while not parent is None:
+    path.append(parent)
+    parent = parents[parent]
+    
+print(path[::-1]) # ['d4', 'c6', 'd8', 'f7')
+```
+
+Заполнение графа в задаче с конем для приверженцев DRY:
 
 ```python
 for i in range(len(letters)):
@@ -5718,6 +5801,8 @@ for i in range(len(letters)):
                 v2 = letters[i_modified] + numbers[j_modified]
                 add_edge(v1, v2)
 ```
+
+<img alt="image" src="images/.jpg"> </img>
 
 <img alt="image" src="images/.jpg"> </img>
 
