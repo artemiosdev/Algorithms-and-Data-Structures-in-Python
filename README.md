@@ -5869,6 +5869,10 @@ while id_end not in distances:
 [К оглавлению](#contents)
 ### <a id="lection26" />Лекция №26. Графы, кратчайший путь, Алгоритм Дейкстры с очередью. Алгоритмы Флойда-Уоршелла.
 
+***Практика: поиск путей минимального веса***
+
+Ранее вы изучили алгоритм поиск в ширину, позволяющий находит кратчайшие пути в невзвешенном графе. Однако, в случае взвешенных графов BFS будет не всегда давать корректный ответ, т.к. он по факту находит путь, содержащий минимальное количество ребер. Перед нами будет стоять задача нахождения пути с наименьшей суммой весов ребер в нем.
+
 ***Вес в графе*** - это число назначаемое ребрам, этот вес не всегда число положительное, может быть и комплексным числом или даже вектором
 
 ***Невзвещенные ребра*** - одинаковые ребра по весу, равные, у всех вес 1.
@@ -5906,57 +5910,64 @@ while id_end not in distances:
 
 <img alt="image" src="images/восстановление пути.jpg"> </img>
 
-47
-```python
-
-
-```
-
-Есть github готовые реализации алгоритма [первый](https://gist.github.com/mdsrosa/c71339cb23bc51e711d8), и [второй](https://gist.github.com/econchick/4666413)
-
-<img alt="image" src="images/.jpg"> </img>
-
-<img alt="image" src="images/.jpg"> </img>
-
-<img alt="image" src="images/.jpg"> </img>
-
-<img alt="image" src="images/.jpg"> </img>
-
+***Считывание графа*** (словаря словарей смежности, он считывается как словарь ребер, а хранится как словарь словарей)
 
 ```python
+def main():
+    G = read_graph()
+    start = input("С какой вершины начать?")
+    while start not in G:
+        start = input("Такой вершины в графе нет. " +
+        "С какой вершины начать?")
+    shortest_distances = dijkstra(G, start)
+    finish = input("К какой вершине построить путь?")
+    while start not in G:
+        start = input("Такой вершины в графе нет. " +
+        "К какой вершине построить путь?")
+        shortest_path = reveal_shortest_path(G, start, finish, shortest_distances)
 
+def read_graph():
+    M = int(input()) # M - количество ребер, далее - строки "a b вес"
+    G = {}
+    for i in range (M):
+        a, b, weight = input().split()
+        weight = float(weight)
+        add_edge(G, a, b, weight)
+        add_edge(G, b, a, weight)
+        
+    return G
+
+def add_edge(G, a, b, weight):
+    if a not in G:
+        G[a] = {b: weight}
+    else:
+        G[a][b] = weight
+        
+if __name__ == "__main__":
+    main ()
 ```
 
+***Реализация алгоритма Дейкстры на доске, поиск кратчайшего расстояния (пути) в графе***
+Q - очередь.
+s - словарь кратчайших путей. И он же и будет ответом
+s[start] - стартовая вершина
+
+Списки в языке имеют логическое значение, как и числа (все true, кроме 0 он false). Пустое множество ложь. Пустая очередь (deque) тоже ложь. 
 
 ```python
-
+Q = deque()
+s = {}
+s[start] = 0
+Q.push(start)
+while Q:
+    v = Q.pop()
+    for u in G[v]:
+        if u not in s or s[v] + G[v][u] < s[u]:
+            s[u] = s[v] + G[v][u]
+            Q.push(u)
 ```
 
-
-```python
-
-```
-
-***Практика: поиск путей минимального веса***
-
-Ранее вы изучили алгоритм поиск в ширину, позволяющий находит кратчайшие пути в невзвешенном графе. Однако, в случае взвешенных графов BFS будет не всегда давать корректный ответ, т.к. он по факту находит путь, содержащий минимальное количество ребер. Перед нами будет стоять задача нахождения пути с наименьшей суммой весов ребер в нем.
-
-***Алгоритм Флойда-Уоршалла***
-
-Для начала рассмотрим алгоритм Флойда (Флойда-Уоршалла). Его отличительной особенностью является то, что он умеет находить кратчайшие расстояния между всеми парами вершин. Но за это приходится платить временем работы, `О(N^3)`. Идея заключается в следующем: мы будем перебирать все возможные тройки вершин `(i, j, k)` и пытаться улучшить путь из `i` в `j`, проходя через `k`.
-
-```python
-# Считываем граф, преобразуем его в матрицу смежности, которую храним в d
-# Отсутствие ребра помечаем каким-нибудь заведомо большим числом
-# Считаем, что n - кол-во вершин, вершины пронумерованы от 0
-
-for k in range(n):
-    for i in range(n):
-        for j in range(n):
-            d[i][j] = min(d[i][j], d[i][k]+d[k][j])
-```
-
-***Алгоритм Дейкстры***
+***Дополнительные пояснения к Алгоритму Дейкстры***
 
 Снова вернемся к задаче поиска кратчайшего растояния от одной вершины до всех остальных, но теперь во взвешенном графе. Для ее решения будем применять алгоритм Дейкстры, который работает следующим образом:
 
@@ -5987,6 +5998,163 @@ while True:
 ```
 
 Время работы алгоритма зависит от того, как быстро ищется минимум. В приведенном выше варианте время работы `O(N^2)`. Для ускорения алгоритма применяют кучу либо дерево отрезков. В обоих случаях время работы будет `O((N+M) log N)`.
+
+
+Есть github готовые реализации алгоритма [первый - Modified Python implementation of Dijkstra's Algorithm](https://gist.github.com/mdsrosa/c71339cb23bc51e711d8)
+
+```python
+from collections import defaultdict, deque
+
+
+class Graph(object):
+    def __init__(self):
+        self.nodes = set()
+        self.edges = defaultdict(list)
+        self.distances = {}
+
+    def add_node(self, value):
+        self.nodes.add(value)
+
+    def add_edge(self, from_node, to_node, distance):
+        self.edges[from_node].append(to_node)
+        self.edges[to_node].append(from_node)
+        self.distances[(from_node, to_node)] = distance
+
+
+def dijkstra(graph, initial):
+    visited = {initial: 0}
+    path = {}
+
+    nodes = set(graph.nodes)
+
+    while nodes:
+        min_node = None
+        for node in nodes:
+            if node in visited:
+                if min_node is None:
+                    min_node = node
+                elif visited[node] < visited[min_node]:
+                    min_node = node
+        if min_node is None:
+            break
+
+        nodes.remove(min_node)
+        current_weight = visited[min_node]
+
+        for edge in graph.edges[min_node]:
+            try:
+                weight = current_weight + graph.distances[(min_node, edge)]
+            except:
+                continue
+            if edge not in visited or weight < visited[edge]:
+                visited[edge] = weight
+                path[edge] = min_node
+
+    return visited, path
+
+
+def shortest_path(graph, origin, destination):
+    visited, paths = dijkstra(graph, origin)
+    full_path = deque()
+    _destination = paths[destination]
+
+    while _destination != origin:
+        full_path.appendleft(_destination)
+        _destination = paths[_destination]
+
+    full_path.appendleft(origin)
+    full_path.append(destination)
+
+    return visited[destination], list(full_path)
+
+if __name__ == '__main__':
+    graph = Graph()
+
+    for node in ['A', 'B', 'C', 'D', 'E', 'F', 'G']:
+        graph.add_node(node)
+
+    graph.add_edge('A', 'B', 10)
+    graph.add_edge('A', 'C', 20)
+    graph.add_edge('B', 'D', 15)
+    graph.add_edge('C', 'D', 30)
+    graph.add_edge('B', 'E', 50)
+    graph.add_edge('D', 'E', 30)
+    graph.add_edge('E', 'F', 5)
+    graph.add_edge('F', 'G', 2)
+
+    print(shortest_path(graph, 'A', 'D')) # output: (25, ['A', 'B', 'D']) 
+```
+
+ и [второй - Python implementation of Dijkstra's Algorithm](https://gist.github.com/econchick/4666413)
+```python
+class Graph:
+  def __init__(self):
+    self.nodes = set()
+    self.edges = defaultdict(list)
+    self.distances = {}
+
+  def add_node(self, value):
+    self.nodes.add(value)
+
+  def add_edge(self, from_node, to_node, distance):
+    self.edges[from_node].append(to_node)
+    self.edges[to_node].append(from_node)
+    self.distances[(from_node, to_node)] = distance
+
+def dijsktra(graph, initial):
+  visited = {initial: 0}
+  path = {}
+
+  nodes = set(graph.nodes)
+
+  while nodes: 
+    min_node = None
+    for node in nodes:
+      if node in visited:
+        if min_node is None:
+          min_node = node
+        elif visited[node] < visited[min_node]:
+          min_node = node
+
+    if min_node is None:
+      break
+
+    nodes.remove(min_node)
+    current_weight = visited[min_node]
+
+    for edge in graph.edges[min_node]:
+      weight = current_weight + graph.distance[(min_node, edge)]
+      if edge not in visited or weight < visited[edge]:
+        visited[edge] = weight
+        path[edge] = min_node
+
+  return visited, path
+```
+
+---
+
+***Алгоритм Флойда-Уоршалла***
+
+Основан на идеи динамического программирования. Цель: ищет кратчайщее расстояние от каждой вершины к каждой. Более универсальнее чем алгоритм Дейкстры. После это выполения имеем матрицу кратчайших расстояний. Асимптотика: O(n^3), она не быстрая, НО применение зависит от задачи. 
+
+Работает с отрицательными весами (ребрами), НО не циклами отрицательного веса, в отличии от алгоритма Дейсктры.
+
+<img alt="image" src="images/Алгоритм Флойда-Уоршалла.jpg"> </img>
+
+Его отличительной особенностью является то, что он умеет находить кратчайшие расстояния между всеми парами вершин. Но за это приходится платить временем работы, `О(N^3)`. Идея заключается в следующем: мы будем перебирать все возможные тройки вершин `(i, j, k)` и пытаться улучшить путь из `i` в `j`, проходя через `k`.
+
+```python
+# Считываем граф, преобразуем его в матрицу смежности, которую храним в d
+# Отсутствие ребра помечаем каким-нибудь заведомо большим числом
+# Считаем, что n - кол-во вершин, вершины пронумерованы от 0
+
+for k in range(n):
+    for i in range(n):
+        for j in range(n):
+            d[i][j] = min(d[i][j], d[i][k]+d[k][j])
+```
+
+---
 
 ***Алгоритм Форда-Беллмана***
 
