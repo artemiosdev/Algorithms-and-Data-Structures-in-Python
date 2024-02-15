@@ -4,6 +4,8 @@
 
 - Материалы курса находятся на [сайте](http://judge.mipt.ru/mipt_cs_on_python3/)
 
+- Практику, лабораторные и контексты вы можете посмотреть у [Aleksey Ustinova](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), размещение согласовано.
+
 - https://www.python.org/
 
 - https://pythonworld.ru/
